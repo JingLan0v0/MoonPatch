@@ -1,0 +1,9 @@
+import {
+  "JingLan0v0/moonpatch" @patch,
+}
+
+pkgtype(kind: "executable")
+
+options(
+  link: { "js": { "format": "cjs" } },
+)
