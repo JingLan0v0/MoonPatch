@@ -32,7 +32,7 @@ MoonPatch 是一个用 MoonBit 实现的 JSON Patch 工具库及命令行程序�
 
 ## 库接口
 
-在本地检出中导入 `JingLan0v0/moonpatch`，并调用 `apply(document, patch)` 或 `apply_json(document_text, patch_text)`。还提供 `pointer_get`、`parse_pointer`、`escape_pointer_token` 与 `json_equal`。可运行的 [`examples/library`](examples/library) 包直接调用公开库接口，不依赖 CLI 宿主层。
+在本地检出中导入 `JingLan0v0/moonpatch`，并调用 `apply(document, patch)` 或 `apply_json(document_text, patch_text)`。还提供 `pointer_get`、`parse_pointer`、`format_pointer`、`escape_pointer_token` 与 `json_equal`。可运行的 [`examples/library`](examples/library) 包直接调用公开库接口，不依赖 CLI 宿主层。
 
 **当前尚未发布到 Mooncakes。** 发布前不要在文档或报名材料中声称可以通过 `moon add` 安装。
 

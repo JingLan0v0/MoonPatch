@@ -7,6 +7,9 @@ test "RFC 6901 root, empty tokens, and escape ordering" {
   assert_true(json_equal(pointer_get(doc, "/m~0n"), @json.parse("2")))
   assert_true(json_equal(pointer_get(doc, "/~01"), @json.parse("3")))
   assert_eq(escape_pointer_token("a/b~c"), "a~1b~0c")
+  let tokens = ["a/b", "~", ""]
+  assert_eq(format_pointer(tokens), "/a~1b/~0/")
+  assert_eq(parse_pointer(format_pointer(tokens)), tokens)
 }
 
 ///|

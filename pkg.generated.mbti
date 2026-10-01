@@ -8,6 +8,8 @@ pub fn apply_json(String, String) -> Json raise PatchError
 
 pub fn escape_pointer_token(String) -> String
 
+pub fn format_pointer(Array[String]) -> String raise PatchError
+
 pub fn json_equal(Json, Json) -> Bool
 
 pub fn parse_pointer(String) -> Array[String] raise PatchError

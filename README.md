@@ -75,7 +75,8 @@ let updated = @moonpatch.apply(document, patch)
 ```
 
 Public entry points are `apply`, `apply_json`, `pointer_get`,
-`parse_pointer`, `escape_pointer_token`, `json_equal`, and `version`.
+`parse_pointer`, `format_pointer`, `escape_pointer_token`, `json_equal`, and
+`version`.
 
 ## Demonstrations and verification
 

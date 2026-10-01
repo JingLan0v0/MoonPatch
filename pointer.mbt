@@ -69,6 +69,23 @@ pub fn escape_pointer_token(token : String) -> String {
 }
 
 ///|
+/// Build a bounded RFC 6901 pointer from already-decoded object keys or
+/// array index tokens. The empty token list addresses the document root.
+pub fn format_pointer(tokens : Array[String]) -> String raise PatchError {
+  if tokens.length() > 128 {
+    patch_fail("limit_exceeded", -1, "", "pointer exceeds 128 tokens")
+  }
+  let mut path = ""
+  for token in tokens {
+    path += "/" + escape_pointer_token(token)
+  }
+  if path.to_array().length() > 16384 {
+    patch_fail("limit_exceeded", -1, path, "pointer exceeds 16384 characters")
+  }
+  path
+}
+
+///|
 fn array_index(
   token : String,
   length : Int,
