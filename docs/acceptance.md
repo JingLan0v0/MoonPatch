@@ -17,8 +17,8 @@
   `2a928f9044aad35c74e2788d498bcf2c6b91adea`.
 
 The upstream suite has 112 records; four are explicitly marked `disabled`
-and are skipped. This evidence is local only. It does not prove GitHub CI,
-Mooncakes publication, October initial review, final acceptance, or payment.
+and are skipped. Local verification does not prove GitHub CI, Mooncakes
+publication, October initial review, final acceptance, or payment.
 
 The code commit `dc2a832` was verified in the working tree and again from a
 fresh `git archive` extraction. The archive excludes `.git`, `_build`, local
@@ -29,8 +29,8 @@ commit does not change the tested code; verify a new code commit separately.
 
 | Check | Expected evidence | Current state |
 |---|---|---|
-| Public repository | Root URL and remote SHA | Not created |
-| Windows and Ubuntu CI | Action run for the same SHA | Not run remotely |
+| Public repository | Root URL and remote SHA | [JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch); verify remote SHA after push |
+| Windows and Ubuntu CI | Action run for the same SHA | Check the [workflow](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml) after push |
 | Mooncakes | Public `JingLan0v0/moonpatch` page and exact version | Not published |
 | Fresh consumer | New module installs released version and applies a patch | Not run |
 | October application | Form receipt and organizer response | Participant/organizer action |

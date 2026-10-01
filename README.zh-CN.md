@@ -2,6 +2,8 @@
 
 简体中文 | [English](README.md)
 
+仓库：[JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch)
+
 MoonPatch 是一个用 MoonBit 实现的 JSON Patch 工具库及命令行程序。它按
 [RFC 6902](https://www.rfc-editor.org/info/rfc6902/) 对 JSON 文档执行局部修改，
 用 [RFC 6901](https://www.rfc-editor.org/info/rfc6901/) JSON Pointer 精确定位字段。
@@ -50,7 +52,7 @@ MoonPatch 是一个用 MoonBit 实现的 JSON Patch 工具库及命令行程序�
 node scripts/verify.mjs
 ```
 
-这个命令检查格式、编译、MoonBit 单元测试、接口生成、CLI 构建、三个示例、真实命令行边界和 108 个启用的公开测试用例。GitHub Actions 工作流已配置 Windows 与 Ubuntu；创建公开仓库并推送后才能得到远端 CI 结果。
+这个命令检查格式、编译、MoonBit 单元测试、接口生成、CLI 构建、三个示例、真实命令行边界和 108 个启用的公开测试用例。[GitHub Actions](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml) 检查 Windows 与 Ubuntu，远端结果应以对应提交的实际运行记录为准。
 
 `pointer.mbt` 处理 RFC 6901，`patch.mbt` 负责六种操作与不变式，`cmd/main` 是 CLI 适配层，`testdata` 保存带来源说明的公开测试向量。架构、参赛条件与当前状态见 `docs/`。
 

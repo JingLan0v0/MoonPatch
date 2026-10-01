@@ -12,9 +12,9 @@ review before any application is sent.
 | One-page project description; applicant understands goal and path | Event page and charter / proposal | `docs/application-facts.md` contains facts and prompts | Participant must write and submit the actual application |
 | At least three complete expected use cases | Charter / proposal | Three runnable examples with exact input, patch and expected output | Prepared |
 | Application proposal must be written by a human | Charter / proposal | No AI-authored submission-ready proposal is provided | Participant action |
-| Public GitHub repository and traceable, meaningful commits; charter says at least 10 valid commits | Event page and charter / proposal and completion | More than 10 substantive local commits; no remote yet | Create public remote and continue real development history |
+| Public GitHub repository and traceable, meaningful commits; charter says at least 10 valid commits | Event page and charter / proposal and completion | [Public repository](https://github.com/JingLan0v0/MoonPatch) and more than 10 substantive commits | Verify remote history and continue real development |
 | MoonBit primary implementation, README, runnable examples and tests | Event page and charter / completion | MoonBit core, two READMEs, examples, unit and RFC suite | Locally verified |
-| CI covering check, build and test | Charter / completion | Windows and Ubuntu workflow prepared | Needs a public remote run |
+| CI covering check, build and test | Charter / completion | Windows and Ubuntu [workflow](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml) | Verify both jobs pass on the submitted commit |
 | Publish package to Mooncakes | Charter / completion | Module metadata prepared, not published | Requires authenticated account and fresh-consumer check |
 | OSI license and provenance | Charter / completion | Apache-2.0 and third-party notices | Prepared |
 | Join contest group and use GitHub ID as nickname | Event page / participant | No account evidence in this repository | Participant action |

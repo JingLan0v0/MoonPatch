@@ -2,6 +2,8 @@
 
 [简体中文](README.zh-CN.md) | English
 
+Repository: [JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch)
+
 MoonPatch is a MoonBit library and file/stdin CLI for applying standard JSON
 Patch documents. It implements [RFC 6902](https://www.rfc-editor.org/info/rfc6902/)
 operations with [RFC 6901](https://www.rfc-editor.org/info/rfc6901/) JSON
@@ -89,9 +91,9 @@ process tests, and the vendored RFC test suite:
 node scripts/verify.mjs
 ```
 
-The GitHub Actions workflow is prepared for Ubuntu and Windows but has no
-remote run until this project is published in a public repository. Design,
-known limits, provenance, and contest status are in [`docs`](docs).
+The [GitHub Actions workflow](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml)
+checks Ubuntu and Windows. Design, known limits, provenance, and contest
+status are in [`docs`](docs).
 
 ## License
 

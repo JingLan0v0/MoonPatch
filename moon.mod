@@ -4,6 +4,8 @@ version = "0.1.0"
 
 readme = "README.md"
 
+repository = "https://github.com/JingLan0v0/MoonPatch"
+
 license = "Apache-2.0"
 
 keywords = [ "json-patch", "json-pointer", "rfc6902", "rfc6901" ]

@@ -24,8 +24,10 @@ Verified facts for the form:
   focuses on the interoperable RFC 6902 wire format and atomic failure.
 - Provenance: original patch engine; vendored Apache-2.0 tests; CLI host and
   CI installer adapted from the entrant's Apache-2.0 MoonJMES project.
-- Present status: local project and local tests complete; GitHub publication,
-  CI, Mooncakes release and October organizer review are **not complete**.
+- Present status: local project and tests complete; public GitHub repository
+  created at https://github.com/JingLan0v0/MoonPatch. Check the remote
+  commit and CI status in `docs/acceptance.md`. Mooncakes release and October
+  organizer review are **not complete**.
 
 Prompts to answer in your own words:
 

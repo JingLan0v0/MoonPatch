@@ -9,7 +9,8 @@
 - Local full verification passes; exact checks are in `docs/acceptance.md`.
 - A clean Git archive of code commit `dc2a832` passed the same full check in
   a separate extraction directory.
-- Repository is local. There is no GitHub remote, public CI result or
+- Public repository: https://github.com/JingLan0v0/MoonPatch. Check the
+  remote commit and public CI run in `docs/acceptance.md`; there is no
   Mooncakes release yet.
 - The current October website says October 31 deadline; the linked charter
   still contains September dates. See `docs/competition.md` before filing.
@@ -26,7 +27,7 @@
 3. Review the ecosystem overlap in `THIRD_PARTY_NOTICES.md` again before
    application. If a focused RFC 6902 MoonBit library has appeared, reassess
    the separate project boundary.
-4. Complete the GitHub and Mooncakes steps in `docs/publishing.md`, then
+4. Complete the remaining GitHub and Mooncakes steps in `docs/publishing.md`, then
    record exact SHAs and URLs in `docs/acceptance.md`.
 5. Let the participant handle contest group membership, account login,
    human-authored application and final form submission. Organizer approval
