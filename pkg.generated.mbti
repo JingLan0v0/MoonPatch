@@ -1,0 +1,34 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "JingLan0v0/moonpatch"
+
+// Values
+pub fn apply(Json, Json) -> Json raise PatchError
+
+pub fn apply_json(String, String) -> Json raise PatchError
+
+pub fn escape_pointer_token(String) -> String
+
+pub fn json_equal(Json, Json) -> Bool
+
+pub fn parse_pointer(String) -> Array[String] raise PatchError
+
+pub fn pointer_get(Json, String) -> Json raise PatchError
+
+pub fn version() -> String
+
+// Errors
+pub(all) suberror PatchError {
+  PatchError(Diagnostic)
+}
+
+// Types and methods
+pub(all) struct Diagnostic {
+  code : String
+  operation : Int
+  path : String
+  message : String
+}
+
+// Type aliases
+
+// Traits
