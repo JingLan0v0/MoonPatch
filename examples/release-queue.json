@@ -1,0 +1,4 @@
+{
+  "queue": ["build", "test", "deploy"],
+  "metadata": { "owner": "team-a" }
+}

@@ -1,0 +1,10 @@
+import {
+  "JingLan0v0/moonpatch" @patch,
+  "moonbitlang/core/json",
+}
+
+pkgtype(kind: "executable")
+
+options(
+  link: { "js": { "format": "cjs" } },
+)

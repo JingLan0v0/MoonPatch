@@ -1,0 +1,5 @@
+{
+  "revision": 4,
+  "service": { "name": "billing", "endpoint": "https://old.example/api" },
+  "features": { "audit": false }
+}

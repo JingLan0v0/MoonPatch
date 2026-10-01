@@ -1,0 +1,4 @@
+{
+  "roles": { "editor": ["read", "write"], "reviewer": ["read", "approve"] },
+  "enabled": true
+}

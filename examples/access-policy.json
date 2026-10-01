@@ -1,0 +1,4 @@
+{
+  "roles": { "guest": ["read"], "editor": ["read", "write"] },
+  "enabled": true
+}

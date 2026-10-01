@@ -1,0 +1,5 @@
+[
+  { "op": "add", "path": "/queue/2", "value": "security-scan" },
+  { "op": "move", "from": "/queue/3", "path": "/queue/1" },
+  { "op": "copy", "from": "/metadata/owner", "path": "/metadata/reviewer" }
+]

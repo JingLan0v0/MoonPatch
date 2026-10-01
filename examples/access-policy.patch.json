@@ -1,0 +1,6 @@
+[
+  { "op": "test", "path": "/enabled", "value": true },
+  { "op": "copy", "from": "/roles/editor", "path": "/roles/reviewer" },
+  { "op": "remove", "path": "/roles/guest" },
+  { "op": "replace", "path": "/roles/reviewer/1", "value": "approve" }
+]

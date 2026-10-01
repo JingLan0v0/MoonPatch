@@ -1,0 +1,6 @@
+[
+  { "op": "test", "path": "/revision", "value": 4 },
+  { "op": "replace", "path": "/service/endpoint", "value": "https://new.example/api" },
+  { "op": "replace", "path": "/features/audit", "value": true },
+  { "op": "replace", "path": "/revision", "value": 5 }
+]

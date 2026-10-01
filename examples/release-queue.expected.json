@@ -1,0 +1,4 @@
+{
+  "queue": ["build", "deploy", "test", "security-scan"],
+  "metadata": { "owner": "team-a", "reviewer": "team-a" }
+}
