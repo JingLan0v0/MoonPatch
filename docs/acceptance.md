@@ -20,6 +20,11 @@ The upstream suite has 112 records; four are explicitly marked `disabled`
 and are skipped. This evidence is local only. It does not prove GitHub CI,
 Mooncakes publication, October initial review, final acceptance, or payment.
 
+The code commit `dc2a832` was verified in the working tree and again from a
+fresh `git archive` extraction. The archive excludes `.git`, `_build`, local
+toolchains, credentials and temporary caches. A later documentation-only
+commit does not change the tested code; verify a new code commit separately.
+
 ## External evidence to add after publication
 
 | Check | Expected evidence | Current state |

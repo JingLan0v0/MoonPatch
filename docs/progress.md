@@ -7,6 +7,8 @@
 - RFC 6901 pointer handling and all six RFC 6902 operations are implemented
   in MoonBit, with a JS-target CLI and immutable failure behavior.
 - Local full verification passes; exact checks are in `docs/acceptance.md`.
+- A clean Git archive of code commit `dc2a832` passed the same full check in
+  a separate extraction directory.
 - Repository is local. There is no GitHub remote, public CI result or
   Mooncakes release yet.
 - The current October website says October 31 deadline; the linked charter
