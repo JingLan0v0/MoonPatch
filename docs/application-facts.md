@@ -25,9 +25,9 @@ Verified facts for the form:
 - Provenance: original patch engine; vendored Apache-2.0 tests; CLI host and
   CI installer adapted from the entrant's Apache-2.0 MoonJMES project.
 - Present status: local project and tests complete; public GitHub repository
-  created at https://github.com/JingLan0v0/MoonPatch. Check the remote
-  commit and CI status in `docs/acceptance.md`. Mooncakes release and October
-  organizer review are **not complete**.
+  created at https://github.com/JingLan0v0/MoonPatch. Windows and Ubuntu CI
+  passed on commit `722ff72` (see `docs/acceptance.md`). Mooncakes release
+  and October organizer review are **not complete**.
 
 Prompts to answer in your own words:
 

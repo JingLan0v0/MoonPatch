@@ -9,9 +9,9 @@
 - Local full verification passes; exact checks are in `docs/acceptance.md`.
 - A clean Git archive of code commit `dc2a832` passed the same full check in
   a separate extraction directory.
-- Public repository: https://github.com/JingLan0v0/MoonPatch. Check the
-  remote commit and public CI run in `docs/acceptance.md`; there is no
-  Mooncakes release yet.
+- Public repository: https://github.com/JingLan0v0/MoonPatch. Remote commit
+  and passing Windows/Ubuntu CI are recorded in `docs/acceptance.md`; there
+  is no Mooncakes release yet.
 - The current October website says October 31 deadline; the linked charter
   still contains September dates. See `docs/competition.md` before filing.
 - The actual one-page proposal must be authored by the participant. Use

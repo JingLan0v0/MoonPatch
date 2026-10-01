@@ -29,8 +29,8 @@ commit does not change the tested code; verify a new code commit separately.
 
 | Check | Expected evidence | Current state |
 |---|---|---|
-| Public repository | Root URL and remote SHA | [JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch); verify remote SHA after push |
-| Windows and Ubuntu CI | Action run for the same SHA | Check the [workflow](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml) after push |
+| Public repository | Root URL and remote SHA | [JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch); remote `main` matched local `722ff72f8901179d658fdc7d526233dbbfa60b91` after push |
+| Windows and Ubuntu CI | Action run for the same SHA | [Run 36865850203](https://github.com/JingLan0v0/MoonPatch/actions/runs/36865850203) passed both platform jobs on `722ff72f8901179d658fdc7d526233dbbfa60b91` |
 | Mooncakes | Public `JingLan0v0/moonpatch` page and exact version | Not published |
 | Fresh consumer | New module installs released version and applies a patch | Not run |
 | October application | Form receipt and organizer response | Participant/organizer action |
