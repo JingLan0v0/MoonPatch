@@ -17,7 +17,20 @@ the author's earlier [MoonJMES](https://github.com/JingLan0v0/moonbit-jmespath)
 project, also Apache-2.0. They are infrastructure; the patch engine is a new
 project with a different public API and standard.
 
-Related MoonBit projects considered at scope selection:
+Related MoonBit projects and the October scope correction:
+
+- [forey217/moonconfig](https://github.com/forey217/moonconfig) already
+  implements RFC 6902 JSON Patch and RFC 6901 JSON Pointer, and also offers
+  diff/replay and configuration merge workflows. The 0.1.0 MoonPatch core
+  therefore overlaps an existing ecosystem project. The October organizer
+  rejected the first proposal for failing to disclose this relationship.
+  Its [`moon.mod`](https://github.com/forey217/moonconfig/blob/main/moon.mod)
+  declares an MIT license.
+  MoonPatch 0.2.0 retains its independently written standards engine, but its
+  contest scope is now the **guarded rollback receipt** produced when applying
+  a supplied patch. It can consume moonconfig-generated RFC 6902 patches;
+  there is no moonconfig dependency or copied source code. See
+  [the feature comparison](docs/moonconfig-comparison.md).
 
 - [tiye/recollect](https://mooncakes.io/docs/tiye/recollect) computes and
   applies its own structural `PatchOp` format for state synchronization.
@@ -26,7 +39,6 @@ Related MoonBit projects considered at scope selection:
 - [moonbitstack/moonjson](https://mooncakes.io/docs/moonbitstack/moonjson)
   includes JSON Pointer and lists JSON Patch as future work.
 
-MoonPatch's boundary is the six-operation RFC 6902 wire format, strict RFC
-6901 addressing, atomic error behavior, and repeatable compatibility testing.
-The ecosystem search was performed on 2026-10-01 and must be repeated before
-submission; it is not a claim that no competing project exists.
+The RFC 6902 operation set is a shared standard, not a novelty claim.
+Descriptions of other projects reflect their public documentation checked on
+2026-10-19; they are not claims that no other rollback implementation exists.

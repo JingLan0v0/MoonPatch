@@ -1,101 +1,35 @@
 # MoonPatch
 
-[简体中文](README.zh-CN.md) | English
+[简体中文](README.zh-CN.md) | English · [GitHub](https://github.com/JingLan0v0/MoonPatch) · [Mooncakes](https://mooncakes.io/docs/JingLan0v0/moonpatch)
 
-Repository: [JingLan0v0/MoonPatch](https://github.com/JingLan0v0/MoonPatch)
+MoonPatch is a MoonBit library and CLI for **reversible JSON Patch transactions**. Given a JSON document and an [RFC 6902](https://www.rfc-editor.org/info/rfc6902/) patch, `apply_with_receipt` returns the new value, affected paths, and a standard RFC 6902 rollback patch. The rollback begins with a `test` of the exact result: if anything changed since the receipt was created, undo fails without changing the caller's document.
 
-MoonPatch is a MoonBit library and file/stdin CLI for applying standard JSON
-Patch documents. It implements [RFC 6902](https://www.rfc-editor.org/info/rfc6902/)
-operations with [RFC 6901](https://www.rfc-editor.org/info/rfc6901/) JSON
-Pointers. A configuration tool or API client can update selected JSON fields
-without replacing an entire document or writing one-off traversal code.
+Version 0.1.0 implemented the six standard patch operations and [RFC 6901](https://www.rfc-editor.org/info/rfc6901/) pointers. **These are existing ecosystem functionality**, including in [forey217/moonconfig](https://github.com/forey217/moonconfig). Version 0.2.0 adds an operation-aware, guarded rollback workflow for patches supplied by a caller or configuration tool. MoonPatch can consume a patch produced by moonconfig; it does not copy moonconfig's source or implement its diff and merge workflow. See [ecosystem comparison](docs/moonconfig-comparison.md) and [provenance](THIRD_PARTY_NOTICES.md).
 
-The core is MoonBit. Node.js is used only for CLI file and process I/O. The
-library does not mutate its input; if any operation fails, the caller gets a
-structured error and no partial result. All **108 enabled tests** in the
-pinned [json-patch-tests](https://github.com/json-patch/json-patch-tests)
-suite pass locally; four upstream tests are marked disabled and are reported
-separately. See [conformance details](docs/acceptance.md).
+## Try a reversible change
 
-## Capabilities and boundaries
-
-- `add`, `remove`, `replace`, `move`, `copy`, and `test`, in document order
-- object member and array edits, including `-` append and index shifts
-- pointer escaping (`~0`, `~1`), empty keys, and root selection
-- JSON value equality for `test`, including `1` equal to `1.0` and object key
-  order independence
-- stable diagnostics with code, operation number, path, and message
-- limits of 4,096 operations, 16,384 pointer characters, 128 pointer tokens,
-  and 16 MiB per CLI input file
-
-The initial release targets MoonBit's JS backend. It has no HTTP client,
-schema validator, JSON diff generator, or nonstandard patch operators. Removing
-the entire root is rejected because it cannot produce a JSON result. This is
-a standalone standards-based patch format; it does not reuse the custom patch
-model of [tiye/recollect](https://mooncakes.io/docs/tiye/recollect).
-
-## Run it locally
-
-Install MoonBit and Node.js 24, then from the project root:
+Install MoonBit and Node.js 24, then run from the repository root:
 
 ```sh
-moon run cmd/main --target js -- --compact examples/service-config.json examples/service-config.patch.json
+moon run cmd/main --target js -- --compact --receipt examples/service-config.json examples/service-config.patch.json
 ```
 
-This produces the JSON in `examples/service-config.expected.json`. Use `-`
-for either document or patch input from stdin, but not both. On Windows,
-`./scripts/moon.ps1` wraps a local or installed `moon` executable:
+The output has `value` (updated JSON), `rollback` (standard patch with a leading `test`) and `paths` (affected pointers). Save `value` and `rollback` as separate JSON files, then run `moon run cmd/main --target js -- --compact value.json rollback.json` to restore the original. `--receipt` is optional; without it the CLI emits only the updated document. On Windows, `./scripts/moon.ps1` wraps a local or installed `moon` executable.
 
-```powershell
-.\scripts\moon.ps1 run cmd/main --target js -- examples/release-queue.json examples/release-queue.patch.json
-```
+Public APIs: `apply_with_receipt(document, patch) -> PatchReceipt`, `apply(document, patch) -> Json`, `apply_with_receipt_json(document_text, patch_text)`, `apply_json`, RFC 6901 pointer helpers and structured diagnostics. [`examples/library`](examples/library) executes a change and rollback using only the public API. Module name: `JingLan0v0/moonpatch`; see [Mooncakes](https://mooncakes.io/docs/JingLan0v0/moonpatch) for published versions.
 
-The CLI writes only JSON to stdout on success. Errors go to stderr and exit
-with status 2; it never rewrites the input files.
+## Behavior and limits
 
-## Library API
+- Forward patches support `add`, `remove`, `replace`, `move`, `copy`, and `test` in order, including array insertion, `-` append, root replacement, and escaped pointer tokens.
+- Input JSON is immutable from the caller's perspective. Failure reports `PatchError` with code, operation index, path, and message; no partial result is returned.
+- Rollback steps run in reverse order. For `move`, the smallest shared ancestor is restored to account for index shifts; receipts can be larger than forward patches.
+- Maximum 4,096 operations for `apply` and 4,095 for `apply_with_receipt` (one slot is needed for the guard). Pointers are limited to 16,384 characters and 128 tokens. CLI inputs are limited to 16 MiB each; in-memory output and receipt size are not bounded by that input limit.
+- The current target is MoonBit JS. Node.js handles only CLI file/stdin/stdout. There is no diff generator, merge engine, JSON Schema validator, HTTP client, or deletion of the entire root.
 
-Import `JingLan0v0/moonpatch` from a local checkout. The runnable
-[`examples/library`](examples/library) package exercises the public API.
-**The package has not yet
-been published to Mooncakes; do not use `moon add` until publication is
-verified.**
+The root `test` checks JSON value equality, not provenance, caller identity, or an external concurrency lock. Persistent or concurrent systems still need their own storage transaction and authorization policy.
 
-```moonbit
-import {
-  "JingLan0v0/moonpatch" @moonpatch,
-  "moonbitlang/core/json",
-}
-```
+## Reproducible evidence
 
-```moonbit
-let document = @json.parse("{\"revision\":4}")
-let patch = @json.parse(
-  "[{\"op\":\"test\",\"path\":\"/revision\",\"value\":4},{\"op\":\"replace\",\"path\":\"/revision\",\"value\":5}]",
-)
-let updated = @moonpatch.apply(document, patch)
-```
+Run `node scripts/verify.mjs` for formatting, compilation, unit tests, the public library example, three CLI scenarios with round-trip rollback, CLI process tests, and the pinned [json-patch-tests](https://github.com/json-patch/json-patch-tests) suite. All 108 enabled upstream cases pass locally; four disabled upstream cases are reported separately. The three scenarios cover service configuration, release ordering, and access policy. [GitHub Actions](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml) runs on Windows and Ubuntu. Results for a specific commit are recorded in [acceptance evidence](docs/acceptance.md).
 
-Public entry points are `apply`, `apply_json`, `pointer_get`,
-`parse_pointer`, `format_pointer`, `escape_pointer_token`, `json_equal`, and
-`version`.
-
-## Demonstrations and verification
-
-Three checked examples are in [`examples`](examples): service configuration,
-release queue ordering, and access policy edits. The full local verification
-command runs formatting, checking, unit tests, those examples, real CLI
-process tests, and the vendored RFC test suite:
-
-```sh
-node scripts/verify.mjs
-```
-
-The [GitHub Actions workflow](https://github.com/JingLan0v0/MoonPatch/actions/workflows/ci.yml)
-checks Ubuntu and Windows. Design, known limits, provenance, and contest
-status are in [`docs`](docs).
-
-## License
-
-Apache-2.0. Upstream test vectors are redistributed under the same license;
-see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Apache-2.0. See [third-party notices](THIRD_PARTY_NOTICES.md) for test-vector and infrastructure provenance.

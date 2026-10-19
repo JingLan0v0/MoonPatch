@@ -1,42 +1,10 @@
-# Applicant fact sheet and self-writing prompts
+# October application facts (2026-10-19)
 
-**This is a fact sheet, not a submission-ready proposal.** The linked Feishu
-charter explicitly says the application must be written by the participant
-and fit within one Markdown page. Write the final wording yourself after
-running the project and checking each claim.
-
-Verified facts for the form:
-
-- Working name: MoonPatch; suggested direction: 工具库.
-- Problem: apply ordered, portable partial updates to JSON documents using
-  RFC 6902 instead of application-specific mutation code.
-- Deliverable: MoonBit library plus file/stdin CLI; six standard operations,
-  RFC 6901 pointers, immutable/atomic application, structured diagnostics.
-- Three demonstrated cases: service configuration revision guard, release
-  queue insertion/move, access-policy copy/remove/replacement. Each has three
-  JSON files under `examples/`.
-- Tests: eight MoonBit unit tests, CLI process checks, three scenarios, and
-  108/108 enabled upstream conformance cases at a pinned commit.
-- Boundaries: JS target, no diff generation or HTTP integration, 4,096 ops,
-  128 pointer segments, 16 MiB per CLI input.
-- Existing work: `tiye/recollect` uses a custom structural patch format;
-  `moonjsonpath` has JSONPath-oriented pointer/patch utilities. MoonPatch
-  focuses on the interoperable RFC 6902 wire format and atomic failure.
-- Provenance: original patch engine; vendored Apache-2.0 tests; CLI host and
-  CI installer adapted from the entrant's Apache-2.0 MoonJMES project.
-- Present status: local project and tests complete; public GitHub repository
-  created at https://github.com/JingLan0v0/MoonPatch. Windows and Ubuntu CI
-  passed on commit `722ff72` (see `docs/acceptance.md`). Mooncakes release
-  and October organizer review are **not complete**.
-
-Prompts to answer in your own words:
-
-1. What specific JSON update did you personally need, and why was replacing
-   the whole document inconvenient or risky?
-2. Why does RFC 6902 interoperability matter for MoonBit users, and how is
-   this different from the related modules above?
-3. Which three examples can you explain end to end, including input,
-   patch, output, and the failure that `test` prevents?
-4. Why did you choose immutable path reconstruction and strict errors? What
-   happens to the original document when the second operation fails?
-5. Which features are deliberately excluded from the first release, and why?
+- Name: MoonPatch; direction: 工具库 / reusable developer component.
+- Repository: https://github.com/JingLan0v0/MoonPatch; module: `JingLan0v0/moonpatch`.
+- Version 0.1.0 independently implemented RFC 6902/RFC 6901. The organizer rejected the first proposal because its core overlaps [forey217/moonconfig](https://github.com/forey217/moonconfig) and the application did not explain that relationship.
+- Version 0.2.0 adds `apply_with_receipt`: updated value, touched paths, and a standard rollback patch whose first operation tests the expected post-state. `move` reverses via the smallest common ancestor to handle array shifts.
+- moonconfig documents patch, diff/replay, and merge. MoonPatch consumes a supplied patch and generates a guarded rollback receipt. No moonconfig source was copied; this is not a migration. See [comparison](moonconfig-comparison.md).
+- Three executable scenarios: service configuration, release queue, access policy. Each has input, forward patch, expected output, and verified rollback.
+- Apache-2.0. Pinned third-party test vectors and reused CLI infrastructure are disclosed in [notices](../THIRD_PARTY_NOTICES.md).
+- The participant reports that AI-written proposals are now permitted. The participant must review the final form; only the organizer can approve it.
