@@ -2,7 +2,7 @@
 fn usage() -> String {
   "MoonPatch " +
   @patch.version() +
-  "\nUsage: moon run cmd/main --target js -- [--compact] DOCUMENT PATCH\nUse - for one input from stdin. Both inputs cannot be -.\n"
+  "\nUsage: moon run cmd/main --target js -- [--compact] [--receipt] DOCUMENT PATCH\nUse - for one input from stdin. Both inputs cannot be -.\n"
 }
 
 ///|
@@ -20,10 +20,13 @@ fn run() -> Int raise {
     return 0
   }
   let mut compact = false
+  let mut receipt = false
   let paths : Array[String] = []
   for arg in args {
     if arg == "--compact" {
       compact = true
+    } else if arg == "--receipt" {
+      receipt = true
     } else if arg.has_prefix("--") {
       write_stderr("moonpatch: unknown option: " + arg + "\n")
       return 2
@@ -45,7 +48,11 @@ fn run() -> Int raise {
     write_stderr("moonpatch: patch io: " + patch[0] + "\n")
     return 2
   }
-  let result = @patch.apply_json(source[1], patch[1])
+  let result = if receipt {
+    @patch.apply_with_receipt_json(source[1], patch[1])
+  } else {
+    @patch.apply_json(source[1], patch[1])
+  }
   write_stdout(result.stringify(indent=if compact { 0 } else { 2 }) + "\n")
   0
 }

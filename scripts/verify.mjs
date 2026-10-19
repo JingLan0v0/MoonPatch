@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { isDeepStrictEqual } from 'node:util';
@@ -27,19 +28,36 @@ process.stdout.write(run(moon, ['test', '--target', 'js']));
 run(moon, ['info', '--target', 'js']);
 run(moon, ['build', 'cmd/main', '--target', 'js']);
 const libraryOutput = run(moon, ['run', 'examples/library', '--target', 'js']);
-if (!isDeepStrictEqual(JSON.parse(libraryOutput), { revision: 5 })) {
+if (!isDeepStrictEqual(JSON.parse(libraryOutput), {
+  value: { revision: 5 }, restored: { revision: 4 },
+})) {
   throw new Error('public library example mismatch');
 }
 console.log('PASS public library API example');
 
 const cli = path.join(root, '_build', 'js', 'debug', 'build', 'cmd', 'main', 'main.js');
-for (const name of ['service-config', 'release-queue', 'access-policy']) {
-  const actual = JSON.parse(run(process.execPath, [cli, '--compact',
-    `examples/${name}.json`, `examples/${name}.patch.json`]));
-  const expected = JSON.parse(fs.readFileSync(path.join(root,
-    `examples/${name}.expected.json`), 'utf8'));
-  if (!isDeepStrictEqual(actual, expected)) throw new Error(`${name} mismatch`);
-  console.log(`PASS scenario: ${name}`);
+const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'moonpatch-receipt-'));
+try {
+  for (const name of ['service-config', 'release-queue', 'access-policy']) {
+    const actual = JSON.parse(run(process.execPath, [cli, '--compact',
+      `examples/${name}.json`, `examples/${name}.patch.json`]));
+    const expected = JSON.parse(fs.readFileSync(path.join(root,
+      `examples/${name}.expected.json`), 'utf8'));
+    if (!isDeepStrictEqual(actual, expected)) throw new Error(`${name} mismatch`);
+    const receipt = JSON.parse(run(process.execPath, [cli, '--compact', '--receipt',
+      `examples/${name}.json`, `examples/${name}.patch.json`]));
+    if (!isDeepStrictEqual(receipt.value, expected)) throw new Error(`${name} receipt mismatch`);
+    const valuePath = path.join(temp, `${name}.result.json`);
+    const undoPath = path.join(temp, `${name}.rollback.json`);
+    fs.writeFileSync(valuePath, JSON.stringify(receipt.value));
+    fs.writeFileSync(undoPath, JSON.stringify(receipt.rollback));
+    const restored = JSON.parse(run(process.execPath, [cli, '--compact', valuePath, undoPath]));
+    const original = JSON.parse(fs.readFileSync(path.join(root, `examples/${name}.json`), 'utf8'));
+    if (!isDeepStrictEqual(restored, original)) throw new Error(`${name} rollback mismatch`);
+    console.log(`PASS scenario and rollback: ${name}`);
+  }
+} finally {
+  fs.rmSync(temp, { recursive: true, force: true });
 }
 
 process.stdout.write(run(process.execPath, ['scripts/cli-integration.mjs']));

@@ -6,6 +6,10 @@ pub fn apply(Json, Json) -> Json raise PatchError
 
 pub fn apply_json(String, String) -> Json raise PatchError
 
+pub fn apply_with_receipt(Json, Json) -> PatchReceipt raise PatchError
+
+pub fn apply_with_receipt_json(String, String) -> Json raise PatchError
+
 pub fn escape_pointer_token(String) -> String
 
 pub fn format_pointer(Array[String]) -> String raise PatchError
@@ -15,6 +19,8 @@ pub fn json_equal(Json, Json) -> Bool
 pub fn parse_pointer(String) -> Array[String] raise PatchError
 
 pub fn pointer_get(Json, String) -> Json raise PatchError
+
+pub fn receipt_json(PatchReceipt) -> Json
 
 pub fn version() -> String
 
@@ -29,6 +35,12 @@ pub(all) struct Diagnostic {
   operation : Int
   path : String
   message : String
+}
+
+pub(all) struct PatchReceipt {
+  value : Json
+  rollback : Json
+  paths : Array[String]
 }
 
 // Type aliases
